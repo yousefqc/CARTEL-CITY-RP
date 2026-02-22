@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>CARTEL CITY RP - التقديم</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="overlay">
+
+<header>
+<img src="logo.png" class="logo-img">
+<div class="logo-text">CARTEL CITY RP</div>
+</header>
+
+<div class="nav">
+<a href="index.html">التقديم</a>
+<a href="rules.html">القوانين</a>
+</div>
+
+<div class="section">
+
+<h2>استبيان التقديم لإدارة RDM</h2>
+
+<form id="applyForm">
+
+<input type="text" id="name" placeholder="اسمك داخل السيرفر" required>
+<input type="text" id="discord" placeholder="Discord ID" required>
+<input type="number" id="age" placeholder="عمرك" required>
+<input type="number" id="hours" placeholder="كم ساعة لعب عندك؟" required>
+
+<select id="experience">
+<option value="">هل سبق استلمت إدارة؟</option>
+<option>نعم</option>
+<option>لا</option>
+</select>
+
+<textarea id="why" placeholder="ليش نشوفك مناسب للإدارة؟" required></textarea>
+
+<h3>اختبار تقييم الإداري</h3>
+
+<p>1- وصلتك شكوى RDM، والمشتكي يقول عنده فيديو لكن يرفض يرسله. شنو تتصرف؟</p>
+<textarea id="q1" required></textarea>
+
+<p>2- أثناء التحقيق، اكتشفت أن الطرفين مخطئين. شلون تتعامل مع الحالة؟</p>
+<textarea id="q3" required></textarea>
+
+<p>3- إداري ثاني تدخل بالحالة بدون تنسيق. شنو تسوي؟</p>
+<textarea id="q4" required></textarea>
+
+<button type="submit">إرسال الطلب</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+const WEBHOOK_URL = "PUT_YOUR_WEBHOOK_HERE";
+
+document.getElementById("applyForm").addEventListener("submit", async function(e){
+e.preventDefault();
+
+const data = {
+embeds:[{
+title:"طلب إدارة RDM جديد",
+color:3447003,
+fields:[
+{name:"الاسم", value:document.getElementById("name").value},
+{name:"Discord ID", value:document.getElementById("discord").value},
+{name:"العمر", value:document.getElementById("age").value},
+{name:"ساعات اللعب", value:document.getElementById("hours").value},
+{name:"خبرة سابقة", value:document.getElementById("experience").value},
+{name:"ليش مناسب", value:document.getElementById("why").value},
+{name:"اختبار 1", value:document.getElementById("q1").value},
+{name:"اختبار 2", value:document.getElementById("q3").value},
+{name:"اختبار 3", value:document.getElementById("q4").value}
+],
+footer:{text:"CARTEL CITY RP"}
+}]
+};
+
+await fetch(WEBHOOK_URL,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(data)
+});
+
+alert("💙 تم إرسال طلبك");
+document.getElementById("applyForm").reset();
+});
+</script>
+
+</body>
+</html>
